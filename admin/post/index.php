@@ -4,16 +4,6 @@ require(".//save_file.php");
 
 function echoInputForm(int $index_post){
   require(".//form_post.php");
-  // cookieに保存する。
-  if(isset($_POST["title"])){
-    setcookie("post_title", $_POST["title"]);
-  } 
-  if(isset($_POST["tag"])){
-    setcookie("post_tag", $_POST["tag"]);
-  }
-  if(isset($_POST["body"])){
-    setcookie("post_body", $_POST["body"]);
-  }
   echo "投稿indexは" . $index_post . "です。<br>※更新時に変化する可能性があります。投稿直後に確定します。";
 }
 
@@ -33,7 +23,12 @@ function echoPreview(){
     echo '<input type="hidden" name="tag" value='.$_POST["tag"].">";
     echo '<input type="hidden" name="body" value='.$_POST["body"].">";
     echo '<input type="submit" value="入力画面へ戻る"> </form>';
-    
+    // 投稿ボタン
+    echo '<form method="POST" action=".?scene=save"> ';
+    echo '<input type="hidden" name="title" value='.$_POST["title"].">";
+    echo '<input type="hidden" name="tag" value='.$_POST["tag"].">";
+    echo '<input type="hidden" name="body" value='.$_POST["body"].">";
+    echo '<input type="submit" value="投稿する"> </form>';
   }
 }
 
@@ -45,7 +40,6 @@ function echoPreview(){
   </head>
   <body>
     <?php
-    
     if(isset($_COOKIE["username"]) && isset($_COOKIE["password"]) && isset($_GET["scene"]) 
     && check_userInfo($_COOKIE["username"], $_COOKIE["password"])){
       echo $_COOKIE["username"] . "さんの投稿<br>";
@@ -53,6 +47,8 @@ function echoPreview(){
         echoInputForm($index_post);
       }else if($_GET["scene"] == "preview"){
         echoPreview();
+      }else if($_GET["scene"] == "save"){
+        save_post($_POST["title"], $_POST["tag"], $_POST["body"], (string)$index_post);
       }
       
     }
