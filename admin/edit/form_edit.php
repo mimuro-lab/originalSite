@@ -1,4 +1,5 @@
 ﻿<form action=".?scene=preview" method="post">
+    <input type="hidden" name="index" value="<?php if(isset($_POST["index"])){echo $_POST["index"];}?>">
     <table>
         <tr>
             <td>
