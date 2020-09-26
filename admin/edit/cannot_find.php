@@ -1,0 +1,1 @@
+﻿インデックス<?php if(isset($_POST["index"])){echo $_POST["index"];}?>に対応する記事は見つかりませんでした。
