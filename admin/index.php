@@ -11,7 +11,7 @@ require(".\\echoHTML.php");
   </head>
   <body>
   <!-- ユーザー情報入力用フォーム -->
-  <form action="" method="get">
+  <form action="" method="post">
   <div>
     <label for="username">ユーザー名</label>
     <input type="text" id="username" name="username">
@@ -27,9 +27,9 @@ require(".\\echoHTML.php");
   <!-- 入力後の画面表示 -->
   <?php 
   //ユーザー情報が入力されていたら。
-  if(isset($_GET["username"]) && isset($_GET["password"])){
-    $username = $_GET["username"];
-    $password = $_GET["password"];
+  if(isset($_POST["username"]) && isset($_POST["password"])){
+    $username = $_POST["username"];
+    $password = $_POST["password"];
     if(check_userInfo($username, $password)){//認証が成功したら
       echoSuccessPage();
     }else{//認証に失敗したら
