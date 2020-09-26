@@ -10,24 +10,15 @@ require(".\\echoHTML.php");
     <title>タイトル　管理ページ</title>
   </head>
   <body>
-  <!-- ユーザー情報入力用フォーム -->
-  <form action="" method="post">
-  <div>
-    <label for="username">ユーザー名</label>
-    <input type="text" id="username" name="username">
-  </div>
-  <div>
-    <label for="password">パスワード</label>
-    <input type="text" id="password" name="password">
-  </div>
-  <input type="submit" value="送信する">
-  </form>
-  <!-- ユーザー情報入力用フォーム -->
 
-  <!-- 入力後の画面表示 -->
-  <?php 
+  <!-- メイン処理-->
+  <?php
+  //どちらかが入力されていなかったら 
+  if(!isset($_POST["username"]) || !isset($_POST["password"])){
+    echoRoginPage();
+  }
   //ユーザー情報が入力されていたら。
-  if(isset($_POST["username"]) && isset($_POST["password"])){
+  else if(isset($_POST["username"]) && isset($_POST["password"])){
     $username = $_POST["username"];
     $password = $_POST["password"];
     if(check_userInfo($username, $password)){//認証が成功したら
@@ -38,7 +29,7 @@ require(".\\echoHTML.php");
   }
 
   ?>
-  <!-- 入力後の画面表示 -->
+  <!-- メイン処理 -->
 
   </body>
 </html>

@@ -1,5 +1,15 @@
 ﻿<?php
 
+// ログイン画面の表示
+function echoRoginPage(){
+    $fp = fopen(".\\rogin.html", "r");
+    $contentOfAll = "";
+    while($content = fgets($fp)){
+        $contentOfAll .= $content;
+    }
+    echo $contentOfAll;
+}
+
 // 認証に成功した時のページ表示
 function echoSuccessPage(){
     $fp = fopen(".\\success.html", "r");
