@@ -30,8 +30,10 @@ require(".\\echoHTML.php");
   if(isset($_GET["username"]) && isset($_GET["password"])){
     $username = $_GET["username"];
     $password = $_GET["password"];
-    if(check_userInfo($username, $password)){
+    if(check_userInfo($username, $password)){//認証が成功したら
       echoSuccessPage();
+    }else{//認証に失敗したら
+      echoFailedPage();
     }
   }
 

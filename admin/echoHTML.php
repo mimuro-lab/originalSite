@@ -10,4 +10,14 @@ function echoSuccessPage(){
     echo $contentOfAll;
 }
 
+// 認証に失敗した時のページ表示
+function echoFailedPage(){
+    $fp = fopen(".\\failed.html", "r");
+    $contentOfAll = "";
+    while($content = fgets($fp)){
+        $contentOfAll .= $content;
+    }
+    echo $contentOfAll;
+}
+
 ?>
