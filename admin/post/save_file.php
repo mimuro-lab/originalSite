@@ -29,9 +29,12 @@ if(empty($exsitDatas)){
 }
 
 function save_post(string $title, string $tag, string $body, string $index_post){
+    // ?newl?を改行にする。
+    $body = str_replace("?newl?", "<br>", $body);
     // 領域（フォルダ）を作る
     $path = path_to_data."\\".$index_post;
     mkdir($path, 0777);
+    // index.htmlを作る
     $pathToHTML = $path . "\\index.html";
     $fp = fopen($pathToHTML, "w");
     fwrite($fp, "<h1>".$title."</h1>\n");
