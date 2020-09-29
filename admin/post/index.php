@@ -36,6 +36,15 @@ function getPreInputTag(){
 }
 
 function echoInputForm(int $index_post){
+  if(!isset($_POST["title"])){
+    $_POST["title"] = "";
+  }
+  if(!isset($_POST["tag"])){
+    $_POST["tag"] = "";
+  }
+  if(!isset($_POST["body"])){
+    $_POST["body"] = "";
+  }
   echoFormPost(getPreInputTitle(), getPreInputTag(), getPreInputBody());
   //echoFormPost("タイトル", "タグ", "本文");
   echo "投稿indexは" . $index_post . "です。<br>※更新時に変化する可能性があります。投稿直後に確定します。";
@@ -85,6 +94,13 @@ function echoPreview(string $title, string $tag, string $body){
   }
 }
 
+function echoSaved(){
+  echo '
+  投稿は完了しました。
+  <form action="./.."><input type="submit" value="アカウントページへ戻る"></form>
+  ';
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -93,16 +109,26 @@ function echoPreview(string $title, string $tag, string $body){
   </head>
   <body>
     <?php
+    // セッションを開始する
+    session_start();
+    
     if(isset($_COOKIE["username"]) && isset($_COOKIE["password"]) && isset($_GET["scene"]) 
     && check_userInfo($_COOKIE["username"], $_COOKIE["password"])){
       echo $_COOKIE["username"] . "さんの投稿<br>";
       if($_GET["scene"] == "input"){
+        $_SESSION["isPosted"] = false;
         echoInputForm($index_post);
       }else if($_GET["scene"] == "preview"){
+        $_SESSION["isPosted"] = false;
         escapeChars();
         echoPreview(getDisplayTitle(), getDisplayTag(), getDisplayBody());
-      }else if($_GET["scene"] == "save"){
-        save_post($_POST["title"], $_POST["tag"], $_POST["body"], (string)$index_post);
+      }else if($_GET["scene"] == "save" && isset($_SESSION["isPosted"])){
+        if(!$_SESSION["isPosted"]){
+          save_post($_POST["title"], $_POST["tag"], $_POST["body"], (string)$index_post);
+          $_SESSION["isPosted"] = true;
+        }else{
+          echoSaved();
+        }
       }
       
     }
