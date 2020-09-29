@@ -1,5 +1,14 @@
 ﻿<?php
 
+function getPreview($pathToPost){
+    $fp = fopen($pathToPost, "r");
+    $title = str_replace("</h1>","",str_replace("<h1>", "",fgets($fp)));
+    $tag = str_replace("</div>","",str_replace("<div hidden>", "",fgets($fp)));
+    $body = fgets($fp);
+    fclose($fp);
+    return array($title,$tag,$body);
+}
+
 function echoPreview($pathToPost){
     $fp = fopen($pathToPost, "r");
     $title = str_replace("</h1>","",str_replace("<h1>", "",fgets($fp)));
