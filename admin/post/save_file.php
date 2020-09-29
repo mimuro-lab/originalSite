@@ -43,7 +43,7 @@ function save_post(string $title, string $tag, string $body, string $index_post)
     fclose($fp);
     echo "投稿しました。インデックスは".$index_post."です。";
     // アカウントページへ戻る
-    echo '<form action=".//..//..//.."><input type="submit" value="アカウントページへ戻る"></form>';
+    echo '<form action="./.."><input type="submit" value="アカウントページへ戻る"></form>';
 }
 
 
